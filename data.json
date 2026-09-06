@@ -6,7 +6,7 @@
     "location": "Janakpurdham, Dhanusha"
   },
   "settings": {
-    "shop_email": "billubhatora@gmail.com",
+    "shop_email": "void28633@gmail.com",
     "shop_phone": "9807693360",
     "contact_address": "Shiv Chowk, Janakpurdham, Dhanusha, Nepal",
     "opening_hours": "9:00 AM – 8:00 PM",
@@ -24,5 +24,6 @@
     "nav_cart": "My Cart",
     "nav_quality": "Why choose us",
     "nav_contact": "Contact"
-  }
+  },
+  "reviews": []
 }

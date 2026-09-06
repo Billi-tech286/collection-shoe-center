@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Checkout | Collection Shoe Center</title>
+  <meta name="description" content="Complete your Collection Shoe Center footwear order." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{--bg:#1c140f;--deep:#140d09;--surface:rgba(244,233,216,.06);--border:rgba(244,233,216,.14);--accent:#cf6a35;--text:#f4e9d8;--muted:#c3ac91;--display:"Fraunces",Georgia,serif;--body:"Work Sans",sans-serif}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(48rem 30rem at 12% -6%,rgba(207,106,53,.16),transparent 60%),linear-gradient(185deg,#201712 0%,var(--bg) 55%,var(--deep));color:var(--text);font-family:var(--body)}a{color:inherit;text-decoration:none}.shell{max-width:1120px;margin:auto;padding:0 1.3rem}.site-header{border-bottom:1px solid var(--border);background:rgba(20,13,9,.82);backdrop-filter:blur(14px)}.header-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:1rem}.brand{display:flex;align-items:center;gap:.65rem;font:700 1.2rem var(--display)}.brand-mark{display:grid;place-items:center;width:34px;height:34px;background:linear-gradient(150deg,var(--accent),#a8501f);color:#1a1108;border-radius:.7rem;font-size:.85rem}.nav{display:flex;gap:1.2rem;color:var(--muted);font-size:.9rem}.nav a:hover{color:var(--text)}main{padding:4rem 0}.eyebrow{color:var(--accent);font-size:.75rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase}.intro h1{font:700 clamp(2.5rem,6vw,4.6rem)/1 var(--display);margin:.8rem 0 1rem}.intro p{color:var(--muted);line-height:1.7}.checkout-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:1.5rem;margin-top:2.5rem}.card{background:var(--surface);border:1px solid var(--border);border-radius:1.2rem;padding:1.5rem}.card h2{font:600 1.5rem var(--display);margin:0 0 1.2rem}.items{display:grid;gap:.8rem}.item{display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:.8rem;background:rgba(0,0,0,.16);border:1px solid var(--border);border-radius:.8rem}.item-info{display:flex;gap:.75rem;align-items:center;min-width:0}.item img{width:58px;height:58px;border-radius:.55rem;object-fit:cover}.item small{display:block;color:var(--muted);margin-top:.25rem}.item button{border:1px solid rgba(206,84,61,.3);background:rgba(206,84,61,.15);color:var(--text);border-radius:999px;padding:.4rem .7rem;cursor:pointer}.total{display:flex;justify-content:space-between;margin-top:1.2rem;font-weight:700;font-size:1.1rem}.field{margin-bottom:1rem}.field label{display:block;font-size:.85rem;font-weight:600;margin-bottom:.4rem}.field input,.field textarea{width:100%;padding:.8rem;border:1px solid var(--border);border-radius:.7rem;background:var(--deep);color:var(--text);font:inherit}.field textarea{min-height:100px;resize:vertical}.payment-options{display:grid;gap:.55rem;margin-bottom:1.2rem}.payment-option{display:flex;gap:.55rem;align-items:center;color:var(--muted)}.btn{display:inline-flex;justify-content:center;border:0;border-radius:999px;padding:.85rem 1.2rem;cursor:pointer;font:600 .9rem var(--body)}.btn-primary{background:linear-gradient(140deg,var(--accent),#a8501f);color:#1a1108}.btn-secondary{border:1px solid var(--border);background:transparent;color:var(--text)}.actions{display:flex;gap:.7rem;flex-wrap:wrap}.message{color:var(--muted);line-height:1.5}.message.error{color:#f0b0a8}.message.success{color:#9fd4ad}.empty{text-align:center;color:var(--muted);padding:2rem 0}.empty .btn{margin-top:1rem}@media(max-width:760px){.nav{gap:.7rem;font-size:.8rem}.checkout-grid{grid-template-columns:1fr}main{padding:3rem 0}}
+  </style>
+</head>
+<body>
+  <header class="site-header"><div class="shell header-inner"><a class="brand" href="index.html"><span class="brand-mark">CS</span> COLLECTION SHOE CENTER</a><nav class="nav"><a href="index.html">Home</a><a href="catalog.html">Shop</a><a href="catalog.html">Continue shopping</a></nav></div></header>
+  <main class="shell">
+    <section class="intro"><span class="eyebrow">Complete your order</span><h1>Checkout</h1><p>Review your selected pair, share your delivery details, and we will confirm your order with you.</p></section>
+    <div class="checkout-grid">
+      <section class="card"><h2>Your order</h2><div id="items" class="items"></div><div class="total"><span>Total</span><span id="total">Rs 0</span></div></section>
+      <section class="card"><h2>Delivery & payment</h2><form id="checkoutForm">
+        <div class="field"><label for="phone">Phone number</label><input id="phone" type="tel" maxlength="10" inputmode="numeric" required placeholder="98XXXXXXXX" /></div>
+        <div class="field"><label for="email">Email address</label><input id="email" type="email" placeholder="you@example.com" /></div>
+        <div class="field"><label for="landmark">Landmark</label><input id="landmark" placeholder="Nearby landmark" /></div>
+        <div class="field"><label for="address">Delivery address</label><textarea id="address" required placeholder="Full delivery address"></textarea></div>
+        <div class="field"><label>Payment method</label><div class="payment-options"><label class="payment-option"><input type="radio" name="payment" value="E-Sewa" checked /> E-Sewa</label><label class="payment-option"><input type="radio" name="payment" value="Cash on Delivery" /> Cash on Delivery</label><label class="payment-option"><input type="radio" name="payment" value="Email Invoice" /> Email Invoice</label></div></div>
+        <p id="message" class="message" aria-live="polite"></p><div class="actions"><button class="btn btn-primary" type="submit">Place order</button><a class="btn btn-secondary" href="catalog.html">Continue shopping</a></div>
+      </form></section>
+    </div>
+  </main>
+  <script src="checkout.js"></script>
+</body>
+</html>

@@ -117,6 +117,8 @@
 
       <div class="tabs">
         <button class="tab active" data-tab="products">Products</button>
+        <button class="tab" data-tab="orders">Pending orders</button>
+        <button class="tab" data-tab="reviews">Reviews</button>
         <button class="tab" data-tab="store">Store info</button>
         <button class="tab" data-tab="content">Site content</button>
         <button class="tab" data-tab="hero">Hero banner</button>
@@ -131,6 +133,11 @@
               <div class="field"><label for="pname">Product name</label><input id="pname" placeholder="e.g. Flex Runner" /></div>
               <div class="field"><label for="pprice">Price (Rs)</label><input id="pprice" inputmode="numeric" placeholder="7599" /></div>
               <div class="field"><label for="pdesc">Description</label><textarea id="pdesc" placeholder="Short product description"></textarea></div>
+              <div class="field">
+                <label>Where should customers see this product?</label>
+                <label class="stock-size"><input id="pShowHome" type="checkbox" checked /> Show on homepage</label>
+                <label class="stock-size"><input id="pShowCatalog" type="checkbox" checked /> Show in catalog</label>
+              </div>
               <div class="field">
                 <label>Available sizes</label>
                 <div class="chip-row" id="sizeChips"></div>
@@ -175,12 +182,29 @@
         </div>
       </div>
 
+      <div id="tab-orders" class="tab-panel">
+        <div class="card">
+          <h2>Pending order requests</h2>
+          <div class="products" id="ordersList"></div>
+          <p id="emptyOrders" class="notice" style="display:none;text-align:center;padding:1rem">No pending order requests.</p>
+        </div>
+      </div>
+
+      <div id="tab-reviews" class="tab-panel">
+        <div class="card">
+          <h2>Review moderation</h2>
+          <p class="notice">Approve suitable footwear reviews for the homepage, or delete reviews that contain nudity, sexual content, abuse, spam, or unrelated material.</p>
+          <div class="products" id="reviewsList"></div>
+          <p id="emptyReviews" class="notice" style="display:none;text-align:center;padding:1rem">No reviews are waiting for moderation.</p>
+        </div>
+      </div>
+
       <div id="tab-store" class="tab-panel">
         <div class="card">
           <h2>Store contact &amp; hours</h2>
           <div class="grid-2">
             <div class="field"><label for="shopPhone">Store phone</label><input id="shopPhone" placeholder="9807693360" /><p class="notice">Saved with +977 prefix for tap-to-call on mobile.</p></div>
-            <div class="field"><label for="shopEmail">Store email</label><input id="shopEmailInput" placeholder="billubhatora@gmail.com" /></div>
+            <div class="field"><label for="shopEmail">Store email</label><input id="shopEmailInput" placeholder="void28633@gmail.com" /></div>
             <div class="field"><label for="contactAddressInput">Store address</label><input id="contactAddressInput" placeholder="Shiv Chowk, Janakpurdham, Dhanusha" /></div>
             <div class="field"><label for="openingHoursInput">Opening hours</label><input id="openingHoursInput" placeholder="9:00 AM – 8:00 PM" /></div>
             <div class="field" style="grid-column:1/-1"><label for="ctaTaglineInput">CTA tagline</label><input id="ctaTaglineInput" placeholder="In-store pickup & local delivery available." /></div>
@@ -485,6 +509,8 @@
       document.getElementById('pdesc').value = '';
       document.getElementById('pimgUrl').value = '';
       document.getElementById('pimgFile').value = '';
+      document.getElementById('pShowHome').checked = true;
+      document.getElementById('pShowCatalog').checked = true;
       document.getElementById('preview').innerHTML = '';
       document.getElementById('productFormTitle').textContent = 'Add a product';
       document.getElementById('saveProduct').textContent = 'Save product';
@@ -499,6 +525,34 @@
     async function loadProducts() {
       products = await api('/api/products');
       renderProductList();
+    }
+
+    async function loadOrders() {
+      const orders = (await api('/api/orders')).filter(order => order.status === 'new');
+      const list = document.getElementById('ordersList');
+      document.getElementById('emptyOrders').style.display = orders.length ? 'none' : 'block';
+      list.innerHTML = orders.map(order => `<div class="product-item"><div class="product-meta"><strong>${order.id}</strong><div class="meta-line">${new Date(order.createdAt).toLocaleString()} · ${String(order.phone || '').replace(/</g,'&lt;')} · ${String(order.paymentMethod || '').replace(/</g,'&lt;')}</div><div class="meta-line">${(order.items || []).map(item => `${String(item.name || '').replace(/</g,'&lt;')} (${String(item.size || '').replace(/</g,'&lt;')})`).join(', ')} · Total Rs ${Number(order.total || 0).toLocaleString()}</div><div class="meta-line">${String(order.address || '').replace(/</g,'&lt;')}</div></div><div class="actions"><select class="order-status" data-id="${order.id}"><option ${order.status === 'new' ? 'selected' : ''}>new</option><option ${order.status === 'confirmed' ? 'selected' : ''}>confirmed</option><option ${order.status === 'delivered' ? 'selected' : ''}>delivered</option><option ${order.status === 'cancelled' ? 'selected' : ''}>cancelled</option></select></div></div>`).join('');
+      list.querySelectorAll('.order-status').forEach(select => select.addEventListener('change', async () => {
+        try { await api(`/api/orders/${encodeURIComponent(select.dataset.id)}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: select.value }) }); showToast('Order status updated'); } catch (e) { showToast('Could not update order', true); }
+      }));
+    }
+
+    async function loadReviews() {
+      const reviews = await api('/api/reviews/manage');
+      const list = document.getElementById('reviewsList');
+      document.getElementById('emptyReviews').style.display = reviews.length ? 'none' : 'block';
+      list.innerHTML = reviews.map(review => `<div class="product-item"><div class="product-meta"><strong>${String(review.name || '').replace(/</g,'&lt;')} · ${'★'.repeat(Number(review.rating) || 0)}${'☆'.repeat(5 - (Number(review.rating) || 0))}</strong><div class="meta-line">${new Date(review.createdAt).toLocaleString()} · ${review.status}</div><div class="meta-line">${String(review.text || '').replace(/</g,'&lt;')}</div>${review.photo ? `<img src="${String(review.photo).replace(/"/g,'&quot;')}" alt="Review photo" style="width:120px;height:90px;object-fit:cover;border-radius:8px;margin-top:.5rem" />` : ''}</div><div class="actions"><button class="btn btn-small ${review.status === 'approved' ? 'btn-ghost' : ''}" data-review-action="${review.status === 'approved' ? 'pending' : 'approved'}" data-review-id="${review.id}">${review.status === 'approved' ? 'Unapprove' : 'Approve'}</button><button class="btn btn-danger btn-small" data-review-action="delete" data-review-id="${review.id}">Delete</button></div></div>`).join('');
+      list.querySelectorAll('[data-review-action]').forEach(button => button.addEventListener('click', async () => {
+        try {
+          if (button.dataset.reviewAction === 'delete') {
+            await api(`/api/reviews/${encodeURIComponent(button.dataset.reviewId)}`, { method: 'DELETE' });
+          } else {
+            await api(`/api/reviews/${encodeURIComponent(button.dataset.reviewId)}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: button.dataset.reviewAction }) });
+          }
+          await loadReviews();
+          showToast('Review updated');
+        } catch (e) { showToast('Could not update review', true); }
+      }));
     }
 
     function renderProductList() {
@@ -561,6 +615,8 @@
           document.getElementById('pname').value = p.name || '';
           document.getElementById('pprice').value = p.price || '';
           document.getElementById('pdesc').value = p.desc || '';
+          document.getElementById('pShowHome').checked = p.showOnHome !== false;
+          document.getElementById('pShowCatalog').checked = p.showInCatalog !== false;
           document.getElementById('pimgUrl').value = p.img || '';
           document.getElementById('preview').innerHTML = p.img ? `<img src="${p.img}" alt="" />` : '';
           sizeList = [...(p.availableSizes || [])];
@@ -611,6 +667,8 @@
       const entry = {
         id: editingId || Date.now().toString(),
         name, price, desc, img: img || (colors[0] && colors[0].imageUrl) || '',
+        showOnHome: document.getElementById('pShowHome').checked,
+        showInCatalog: document.getElementById('pShowCatalog').checked,
         availableSizes: [...sizeList],
         availableColors: colors
       };
@@ -728,6 +786,8 @@
 
     async function loadAll() {
       await loadProducts();
+      try { await loadOrders(); } catch (e) {}
+      try { await loadReviews(); } catch (e) {}
       try {
         const settings = await api('/api/settings');
         document.getElementById('shopPhone').value = settings.shop_phone || '';

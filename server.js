@@ -61,6 +61,8 @@ function normalizeProduct(p) {
     price: Number(p.price) || 0,
     desc: p.desc || '',
     img: p.img || '',
+    showOnHome: p.showOnHome !== false,
+    showInCatalog: p.showInCatalog !== false,
     availableSizes: Array.isArray(p.availableSizes) ? p.availableSizes : [],
     availableColors: Array.isArray(p.availableColors) ? p.availableColors.map(color => ({
       colorName: color.colorName || 'Variant',
@@ -144,7 +146,28 @@ app.post('/api/order-request', async (req, res) => {
   const text = `${subject}\n\nPhone: ${phone}\nCustomer email: ${email || 'Not provided'}\nLandmark: ${landmark || 'Not provided'}\nAddress: ${address || 'Not provided'}\nPayment: ${paymentMethod || 'Not selected'}\n\nItems:\n${lines}`;
   const settings = await readJSON(DATA_FILE, {});
   const recipient = process.env.OWNER_EMAIL || settings.settings?.shop_email || OWNER_EMAIL;
+  const order = {
+    id: `order-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    createdAt: new Date().toISOString(),
+    status: 'new',
+    phone: String(phone),
+    email: String(email || ''),
+    landmark: String(landmark || ''),
+    address: String(address || ''),
+    paymentMethod: String(paymentMethod || ''),
+    items: items.map(item => ({
+      id: item.id || '',
+      name: String(item.name || ''),
+      size: String(item.size || ''),
+      color: String(item.color || ''),
+      price: Number(item.priceValue ?? item.price) || 0
+    })),
+    total: items.reduce((sum, item) => sum + (Number(item.priceValue ?? item.price) || 0), 0)
+  };
+  settings.orders = Array.isArray(settings.orders) ? settings.orders : [];
+  settings.orders.unshift(order);
   try {
+    await writeJSON(DATA_FILE, settings);
     if (process.env.SMTP_HOST) {
       const nodemailer = require('nodemailer');
       const transporter = nodemailer.createTransport({
@@ -157,11 +180,82 @@ app.post('/api/order-request', async (req, res) => {
     } else {
       console.log(`Order request for ${recipient}:\n${text}`);
     }
-    return res.json({ ok: true });
+    return res.json({ ok: true, orderId: order.id });
   } catch (error) {
     console.error('Order email failed:', error.message);
     return res.status(502).json({ error: 'Could not send the order request' });
   }
+});
+
+app.get('/api/orders', requireAuth, async (req, res) => {
+  const settings = await readJSON(DATA_FILE, {});
+  res.json(Array.isArray(settings.orders) ? settings.orders : []);
+});
+
+app.put('/api/orders/:id', requireAuth, async (req, res) => {
+  const settings = await readJSON(DATA_FILE, {});
+  const orders = Array.isArray(settings.orders) ? settings.orders : [];
+  const order = orders.find(item => item.id === req.params.id);
+  if (!order) return res.status(404).json({ error: 'Order not found' });
+  if (typeof req.body?.status === 'string') order.status = req.body.status;
+  await writeJSON(DATA_FILE, settings);
+  res.json(order);
+});
+
+function normalizeReview(review) {
+  const rating = Math.max(1, Math.min(5, Number(review.rating) || 0));
+  return {
+    id: review.id || `review-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    createdAt: review.createdAt || new Date().toISOString(),
+    status: review.status === 'approved' ? 'approved' : 'pending',
+    name: String(review.name || '').trim().slice(0, 80),
+    text: String(review.text || '').trim().slice(0, 1000),
+    rating,
+    photo: typeof review.photo === 'string' && review.photo.startsWith('data:image/') ? review.photo : ''
+  };
+}
+
+app.get('/api/reviews', async (req, res) => {
+  const data = await readJSON(DATA_FILE, {});
+  const reviews = Array.isArray(data.reviews) ? data.reviews : [];
+  res.json(reviews.filter(review => review.status === 'approved'));
+});
+
+app.post('/api/reviews', async (req, res) => {
+  const review = normalizeReview(req.body || {});
+  if (!review.name || !review.text || review.rating < 1 || review.rating > 5) {
+    return res.status(400).json({ error: 'Name, review text, and a rating from 1 to 5 are required' });
+  }
+  if (review.photo.length > 3 * 1024 * 1024) {
+    return res.status(413).json({ error: 'Review photo must be smaller than 3 MB' });
+  }
+  const data = await readJSON(DATA_FILE, {});
+  data.reviews = Array.isArray(data.reviews) ? data.reviews : [];
+  data.reviews.unshift(review);
+  await writeJSON(DATA_FILE, data);
+  res.status(201).json({ ok: true, reviewId: review.id });
+});
+
+app.get('/api/reviews/manage', requireAuth, async (req, res) => {
+  const data = await readJSON(DATA_FILE, {});
+  res.json(Array.isArray(data.reviews) ? data.reviews : []);
+});
+
+app.put('/api/reviews/:id', requireAuth, async (req, res) => {
+  const data = await readJSON(DATA_FILE, {});
+  const reviews = Array.isArray(data.reviews) ? data.reviews : [];
+  const review = reviews.find(item => item.id === req.params.id);
+  if (!review) return res.status(404).json({ error: 'Review not found' });
+  if (req.body?.status === 'approved' || req.body?.status === 'pending') review.status = req.body.status;
+  await writeJSON(DATA_FILE, data);
+  res.json(review);
+});
+
+app.delete('/api/reviews/:id', requireAuth, async (req, res) => {
+  const data = await readJSON(DATA_FILE, {});
+  data.reviews = (Array.isArray(data.reviews) ? data.reviews : []).filter(review => review.id !== req.params.id);
+  await writeJSON(DATA_FILE, data);
+  res.json({ ok: true });
 });
 
 // Hero and settings

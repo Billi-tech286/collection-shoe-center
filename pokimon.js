@@ -48,6 +48,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const orderSuccessModal = $("#orderSuccessModal");
   const closeModalButton = $("#closeModalButton");
   const header = $("#siteHeader");
+  const reviewList = $("#reviewList");
+  const reviewForm = $("#reviewForm");
+  const reviewPhoto = $("#reviewPhoto");
+  const reviewPhotoPreview = $("#reviewPhotoPreview");
+  const reviewMessage = $("#reviewMessage");
 
   let cart = [];
   let productEls = [];
@@ -197,15 +202,16 @@ document.addEventListener("DOMContentLoaded", () => {
     art.dataset.price = p.price || "";
     art.dataset.sizes = JSON.stringify(sizes);
     art.dataset.colors = JSON.stringify(colors);
+    art.dataset.productId = p.id || "";
     art.innerHTML = `
       <img src="${normalizeText((colors[0] && colors[0].imageUrl) || p.img || "")}" alt="${normalizeText(p.name)}" />
       <div class="product-content">
-        <h3>${normalizeText(p.name)}</h3>
+        <h3><a href="product.html?id=${encodeURIComponent(p.id || "")}">${normalizeText(p.name)}</a></h3>
         <p>${normalizeText(p.desc)}</p>
         ${buildVariantRow(sizes, colors)}
         <div class="product-footer">
           <div class="price-tag">Rs ${Number(p.price || 0).toLocaleString()}</div>
-          <button class="add-button" disabled>Add to cart</button>
+          <div style="display:flex;gap:.45rem;align-items:center;flex-wrap:wrap;justify-content:flex-end"><a href="product.html?id=${encodeURIComponent(p.id || "")}" class="btn btn-secondary" style="padding:.7rem .85rem;font-size:.82rem">View details</a><button class="add-button" disabled>Add to cart</button></div>
         </div>
       </div>
     `;
@@ -282,7 +288,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const serverProducts = await loadProductsFromServer();
     if (serverProducts) {
       productGridEl.innerHTML = "";
-      serverProducts.forEach((p) => createProductArticle(p));
+      serverProducts.filter((p) => p.showOnHome !== false).forEach((p) => createProductArticle(p));
     }
     rebuildProductList();
     initHeroCarousel();
@@ -351,6 +357,61 @@ document.addEventListener("DOMContentLoaded", () => {
     toast.textContent = msg;
     toast.classList.add("show");
     setTimeout(() => toast.classList.remove("show"), 2200);
+  }
+
+  function renderReviews(reviews) {
+    if (!reviewList) return;
+    if (!reviews.length) {
+      reviewList.innerHTML = '<p class="review-empty">No approved reviews yet. Be the first to share your experience.</p>';
+      return;
+    }
+    reviewList.innerHTML = reviews.map((review) => `<article class="review-card"><header><div><strong>${normalizeText(review.name)}</strong><div class="review-stars" aria-label="${Number(review.rating)} out of 5 stars">${"★".repeat(Number(review.rating))}${"☆".repeat(5 - Number(review.rating))}</div></div><small>${new Date(review.createdAt).toLocaleDateString()}</small></header><p>${normalizeText(review.text)}</p>${review.photo ? `<img src="${normalizeText(review.photo)}" alt="Photo shared by ${normalizeText(review.name)}" loading="lazy" />` : ""}</article>`).join("");
+  }
+
+  async function loadReviews() {
+    if (!reviewList) return;
+    try {
+      const response = await fetch("/api/reviews");
+      renderReviews(response.ok ? await response.json() : []);
+    } catch (error) {
+      renderReviews([]);
+    }
+  }
+
+  function initReviews() {
+    if (!reviewForm) return;
+    let rating = 0;
+    const starButtons = $$("button[data-rating]", reviewForm);
+    const updateStars = () => starButtons.forEach((button) => button.classList.toggle("active", Number(button.dataset.rating) <= rating));
+    starButtons.forEach((button) => button.addEventListener("click", () => { rating = Number(button.dataset.rating); updateStars(); }));
+    reviewPhoto?.addEventListener("change", () => {
+      const file = reviewPhoto.files?.[0];
+      if (!file) return;
+      if (file.size > 3 * 1024 * 1024) {
+        reviewMessage.textContent = "Photo must be smaller than 3 MB.";
+        reviewPhoto.value = "";
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => { reviewPhotoPreview.src = reader.result; reviewPhotoPreview.style.display = "block"; };
+      reader.readAsDataURL(file);
+    });
+    reviewForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!rating) { reviewMessage.textContent = "Please choose a star rating."; return; }
+      const submit = reviewForm.querySelector("button[type=submit]");
+      submit.disabled = true;
+      reviewMessage.textContent = "Submitting for review...";
+      let photo = "";
+      const file = reviewPhoto?.files?.[0];
+      if (file) photo = await new Promise((resolve) => { const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.readAsDataURL(file); });
+      try {
+        const response = await fetch("/api/reviews", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: $("#reviewName").value.trim(), rating, text: $("#reviewText").value.trim(), photo }) });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.error || "Could not submit review");
+        reviewForm.reset(); rating = 0; updateStars(); reviewPhotoPreview.style.display = "none"; reviewMessage.textContent = "Thank you. Your review is awaiting approval.";
+      } catch (error) { reviewMessage.textContent = error.message; } finally { submit.disabled = false; }
+    });
   }
 
   function saveCart() {
@@ -533,5 +594,7 @@ document.addEventListener("DOMContentLoaded", () => {
   applyPhoneLinks("9807693360");
   applySiteData();
   initProducts();
+  initReviews();
+  loadReviews();
   loadCart();
 });

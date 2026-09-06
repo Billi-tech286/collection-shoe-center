@@ -1002,6 +1002,26 @@
     }
 
     /* ---------- contact ---------- */
+    .reviews-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:1.5rem;align-items:start}
+    .review-list{display:grid;gap:.9rem}
+    .review-card{background:var(--surface);border:1px solid var(--border);border-radius:1.2rem;padding:1.2rem}
+    .review-card header{display:flex;justify-content:space-between;gap:1rem;align-items:start}
+    .review-card strong{font-family:var(--font-display);font-size:1.05rem}
+    .review-stars,.star-picker{color:var(--brass);letter-spacing:.12em}
+    .review-card p{color:var(--muted);line-height:1.6;margin:.7rem 0 0}
+    .review-card img{display:block;width:100%;max-height:220px;object-fit:cover;border-radius:.8rem;margin-top:.9rem}
+    .review-form{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem}
+    .review-form label{display:block;font-weight:600;font-size:.9rem;margin:.85rem 0 .4rem}
+    .review-form input[type=text],.review-form textarea{width:100%;border:1px solid var(--border);border-radius:.8rem;padding:.8rem;background:var(--bg-deep);color:var(--text);font:inherit}
+    .review-form textarea{min-height:110px;resize:vertical}
+    .star-picker{display:flex;gap:.15rem}
+    .star-picker button{border:0;background:transparent;color:var(--muted);font-size:1.7rem;padding:0;cursor:pointer}
+    .star-picker button.active{color:var(--brass)}
+    .review-upload-note{color:var(--muted);font-size:.8rem;line-height:1.45;margin:.4rem 0 0}
+    .review-photo-preview{max-width:100%;max-height:140px;border-radius:.7rem;margin-top:.7rem;display:none}
+    .review-empty{color:var(--muted);padding:1rem 0}
+    @media(max-width:760px){.reviews-grid{grid-template-columns:1fr}}
+
     .contact-grid {
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
@@ -1285,9 +1305,10 @@
         Collection Shoe Center
       </a>
       <nav>
-        <a id="navShop" href="#shop">Shop</a>
+        <a id="navShop" href="catalog.html">Shop</a>
         <a id="navHow" href="#how">How it works</a>
-        <a id="navCart" href="#cart"><span id="navCartLabel">My Cart</span> (<span id="cartCount">0</span>)</a>
+        <a id="navCart" href="checkout.html"><span id="navCartLabel">My Cart</span> (<span id="cartCount">0</span>)</a>
+        <a href="checkout.html">Checkout</a>
         <a id="navQuality" href="#quality">Quality</a>
         <a id="navContact" href="#contact">Contact</a>
       </nav>
@@ -1301,7 +1322,7 @@
         <h1>Step into comfort with shoes built for <em>your</em> everyday stride.</h1>
         <p>Collection Shoe Center brings together lightweight sneakers, supportive trainers, and elegant casual shoes — handpicked for quality and priced so a good pair doesn't cost a compromise.</p>
         <div class="buttons">
-          <a id="heroButton1" href="#shop" class="btn btn-primary">Browse the collection</a>
+          <a id="heroButton1" href="catalog.html" class="btn btn-primary">Browse the collection</a>
           <a id="heroButton2" href="#contact" class="btn btn-secondary">Visit our store</a>
         </div>
         <p class="cta-banner" id="ctaTagline">
@@ -1542,7 +1563,7 @@
         </div>
         <div class="order-actions">
           <div><strong>Total:</strong> <span id="cartTotal">Rs 0</span></div>
-          <button id="clearCartButton" class="btn btn-secondary">Clear cart</button>
+          <div style="display:flex;gap:.6rem;flex-wrap:wrap"><button id="clearCartButton" class="btn btn-secondary">Clear cart</button><a href="checkout.html" class="btn btn-primary">Go to checkout</a></div>
         </div>
       </div>
 
@@ -1563,7 +1584,7 @@
           <label class="payment-option"><input type="radio" name="paymentMethod" value="Cash on Delivery" /> Cash on Delivery</label>
           <label class="payment-option"><input type="radio" name="paymentMethod" value="Email Invoice" /> Email Invoice</label>
         </div>
-        <p class="order-note">Order details will be sent automatically to the shop email: <strong id="shopEmail">billubhatora@gmail.com</strong>.</p>
+        <p class="order-note">Order details will be sent automatically to the shop email: <strong id="shopEmail">void28633@gmail.com</strong>.</p>
         <button id="sendOrderButton" class="btn btn-primary">Send order request</button>
       </div>
     </section>
@@ -1603,6 +1624,36 @@
       </div>
     </section>
 
+    <section id="reviews" class="section">
+      <div class="section-head">
+        <div>
+          <span class="kicker">Customer notes</span>
+          <h2>What customers say</h2>
+        </div>
+      </div>
+      <div class="reviews-grid">
+        <div id="reviewList" class="review-list" aria-live="polite"><p class="review-empty">Loading customer reviews...</p></div>
+        <form id="reviewForm" class="review-form">
+          <h3>Share your experience</h3>
+          <p class="notice">Reviews are checked before they appear publicly. Please upload footwear-related photos only. Nudity or inappropriate content will be rejected.</p>
+          <label for="reviewName">Your name</label>
+          <input id="reviewName" type="text" maxlength="80" required placeholder="Enter your name" />
+          <label>Rating</label>
+          <div id="reviewStars" class="star-picker" role="radiogroup" aria-label="Rating from one to five stars">
+            <button type="button" data-rating="1" aria-label="1 star">★</button><button type="button" data-rating="2" aria-label="2 stars">★</button><button type="button" data-rating="3" aria-label="3 stars">★</button><button type="button" data-rating="4" aria-label="4 stars">★</button><button type="button" data-rating="5" aria-label="5 stars">★</button>
+          </div>
+          <label for="reviewText">Your review</label>
+          <textarea id="reviewText" maxlength="1000" required placeholder="Tell us about the fit, comfort, and service"></textarea>
+          <label for="reviewPhoto">Photo (optional)</label>
+          <input id="reviewPhoto" type="file" accept="image/jpeg,image/png,image/webp" />
+          <p class="review-upload-note">Maximum 3 MB. Your photo will be reviewed before publication.</p>
+          <img id="reviewPhotoPreview" class="review-photo-preview" alt="Review photo preview" />
+          <p id="reviewMessage" class="notice" aria-live="polite"></p>
+          <button type="submit" class="btn btn-primary">Submit review</button>
+        </form>
+      </div>
+    </section>
+
     <section id="contact" class="section">
       <div class="section-head">
         <div>
@@ -1616,7 +1667,7 @@
         📍 <span id="storeInfoAddress">Shiv Chowk, Janakpurdham, Dhanusha</span><br />
         🕒 Open Daily: <span id="storeInfoHours">9:00 AM – 8:00 PM</span><br />
         📞 <a id="storeInfoPhone" href="tel:+9779807693360">+977 9807693360</a><br />
-        ✉️ <a id="storeInfoEmail" href="mailto:billubhatora@gmail.com">billubhatora@gmail.com</a><br />
+        ✉️ <a id="storeInfoEmail" href="mailto:void28633@gmail.com">void28633@gmail.com</a><br />
         💬 <a id="storeInfoWhatsApp" href="https://wa.me/9779807693360?text=Hi%20Collection%20Shoe%20Center,%20I%20have%20a%20question%20about%20your%20shoes." target="_blank" rel="noopener noreferrer">Click here to chat on WhatsApp</a>
       </div>
       <div class="contact-grid">
@@ -1633,7 +1684,7 @@
             </div>
             <div class="contact-item">
               <span>Email</span>
-              <strong id="contactEmail">billubhatora@gmail.com</strong>
+              <strong id="contactEmail">void28633@gmail.com</strong>
             </div>
           </div>
         </div>
@@ -1684,7 +1735,7 @@
         <div class="footer-col">
           <h4>Explore</h4>
           <ul>
-            <li><a href="#shop">Shop the collection</a></li>
+            <li><a href="catalog.html">Shop the collection</a></li>
             <li><a href="#how">How ordering works</a></li>
             <li><a href="#cart">Cart & checkout</a></li>
             <li><a href="#quality">Why choose us</a></li>
@@ -1695,7 +1746,7 @@
           <ul>
             <li>Shiv Chowk, Janakpurdham, Dhanusha</li>
             <li><a id="footerPhone" href="tel:+9779807693360">+977 9807693360</a></li>
-            <li><a href="mailto:billubhatora@gmail.com">billubhatora@gmail.com</a></li>
+            <li><a href="mailto:void28633@gmail.com">void28633@gmail.com</a></li>
             <li>Open daily, 9:00 AM – 8:00 PM</li>
           </ul>
         </div>
