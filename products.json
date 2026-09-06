@@ -1,0 +1,139 @@
+[
+  {
+    "id": "p1",
+    "name": "Flex Runner",
+    "price": 7599,
+    "desc": "Lightweight running shoes with responsive foam and breathable upper for everyday comfort.",
+    "img": "https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=800&q=80",
+    "availableSizes": [
+      "EU 39",
+      "EU 40",
+      "EU 41",
+      "EU 42",
+      "EU 43",
+      "EU 44"
+    ],
+    "availableColors": [
+      {
+        "colorName": "Black",
+        "imageUrl": "https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=800&q=80",
+        "outOfStockSizes": []
+      },
+      {
+        "colorName": "White",
+        "imageUrl": "https://images.unsplash.com/photo-1519741491630-85d22743f6cc?auto=format&fit=crop&w=800&q=80",
+        "outOfStockSizes": []
+      }
+    ]
+  },
+  {
+    "id": "p2",
+    "name": "Classic Lace-Up",
+    "price": 5499,
+    "desc": "Everyday casual shoe with soft lining and reliable support for work or city strolls.",
+    "img": "https://ectomorphing.com/wp-content/uploads/2022/05/pexels-jordan-hyde-1070360-1-1024x683.jpg",
+    "availableSizes": [
+      "EU 38",
+      "EU 39",
+      "EU 40",
+      "EU 41",
+      "EU 42",
+      "EU 43",
+      "EU 44"
+    ],
+    "availableColors": [
+      {
+        "colorName": "Black",
+        "imageUrl": "https://ectomorphing.com/wp-content/uploads/2022/05/pexels-jordan-hyde-1070360-1-1024x683.jpg",
+        "outOfStockSizes": []
+      },
+      {
+        "colorName": "Tan",
+        "imageUrl": "https://images.unsplash.com/photo-1528701800489-20a23c6959b5?auto=format&fit=crop&w=800&q=80",
+        "outOfStockSizes": []
+      }
+    ]
+  },
+  {
+    "id": "p3",
+    "name": "Classic Level Up",
+    "price": 3499,
+    "desc": "Elegant brown leather shoe with a polished finish and comfortable cushioning for daily wear.",
+    "img": "https://wallpaperaccess.com/full/680096.jpg",
+    "availableSizes": [
+      "EU 39",
+      "EU 40",
+      "EU 41",
+      "EU 42",
+      "EU 43",
+      "EU 44",
+      "EU 45"
+    ],
+    "availableColors": [
+      {
+        "colorName": "Brown",
+        "imageUrl": "https://wallpaperaccess.com/full/680096.jpg",
+        "outOfStockSizes": []
+      },
+      {
+        "colorName": "Black",
+        "imageUrl": "https://images.unsplash.com/photo-1528701800489-20a23c6959b5?auto=format&fit=crop&w=800&q=80",
+        "outOfStockSizes": []
+      }
+    ]
+  },
+  {
+    "id": "p4",
+    "name": "Glide Horizon",
+    "price": 3499,
+    "desc": "Lightweight and stylish shoes designed for everyday comfort with a modern silhouette and soft support.",
+    "img": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
+    "availableSizes": [
+      "EU 39",
+      "EU 40",
+      "EU 41",
+      "EU 42",
+      "EU 43",
+      "EU 44"
+    ],
+    "availableColors": [
+      {
+        "colorName": "Blue",
+        "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
+        "outOfStockSizes": []
+      },
+      {
+        "colorName": "Gray",
+        "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
+        "outOfStockSizes": []
+      }
+    ]
+  },
+  {
+    "id": "p6",
+    "name": "Skydrift Kicks",
+    "price": 3799,
+    "desc": "Airy sneakers with sleek style and cushioned support made for fast city steps and weekend wanderings.",
+    "img": "https://images.unsplash.com/photo-1605523741177-cd660595c2cf?w=400&auto=format&fit=crop&q=60",
+    "availableSizes": [
+      "EU 39",
+      "EU 40",
+      "EU 41",
+      "EU 42",
+      "EU 43",
+      "EU 44"
+    ],
+    "availableColors": [
+      {
+        "colorName": "White",
+        "imageUrl": "https://images.unsplash.com/photo-1605523741177-cd660595c2cf?w=400&auto=format&fit=crop&q=60",
+        "outOfStockSizes": []
+      },
+      {
+        "colorName": "Blue",
+        "imageUrl": "https://images.unsplash.com/photo-1528701800489-20a23c6959b5?auto=format&fit=crop&w=800&q=80",
+        "outOfStockSizes": []
+      }
+    ]
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "hero": {
+    "img": "",
+    "title": "",
+    "desc": "",
+    "location": "Janakpurdham, Dhanusha"
+  },
+  "settings": {
+    "shop_email": "billubhatora@gmail.com",
+    "shop_phone": "9807693360",
+    "contact_address": "Shiv Chowk, Janakpurdham, Dhanusha, Nepal",
+    "opening_hours": "9:00 AM – 8:00 PM",
+    "cta_tagline": "In-store pickup & local delivery available."
+  },
+  "siteContent": {
+    "hero_button_1": "Browse the collection",
+    "hero_button_2": "Visit our store",
+    "footer_brand_title": "Collection Shoe Center",
+    "footer_brand_copy": "High-quality footwear for every budget, sold from our store on Shiv Chowk in Janakpurdham — crafted with care and built to last.",
+    "footer_bottom_left": "© 2026 Collection Shoe Center",
+    "footer_bottom_right": "Janakpurdham, Dhanusha, Nepal",
+    "nav_shop": "Shop the collection",
+    "nav_how": "How it works",
+    "nav_cart": "My Cart",
+    "nav_quality": "Why choose us",
+    "nav_contact": "Contact"
+  }
+}

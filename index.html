@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collection Shoe Center — Footwear in Janakpurdham</title>
+  <meta name="description" content="Collection Shoe Center in Janakpurdham, Dhanusha — sneakers, casual and outdoor shoes at fair prices. Browse online, pay with E-Sewa or Cash on Delivery." />
+  <meta property="og:title" content="Collection Shoe Center" />
+  <meta property="og:description" content="Quality footwear for everyday life, based in Janakpurdham, Dhanusha, Nepal." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=800&q=80" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231c140f'/%3E%3Cpath d='M18 40c4-12 18-20 28-13 4 3 4 9 1 13-4 6-12 11-21 9-6-1-9-4-8-9z' fill='%23cf6a35'/%3E%3Cpath d='M21 33c4-4 10-5 15-3' stroke='%23f4e9d8' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M34 26c1-1 2-2 4-2' stroke='%23f4e9d8' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #1c140f;
+      --bg-deep: #140d09;
+      --surface: rgba(244, 233, 216, 0.06);
+      --surface-strong: rgba(244, 233, 216, 0.1);
+      --border: rgba(244, 233, 216, 0.14);
+      --stitch: rgba(244, 233, 216, 0.3);
+      --accent: #cf6a35;
+      --accent-deep: #a8501f;
+      --brass: #cda355;
+      --text: #f4e9d8;
+      --muted: #c3ac91;
+      --radius-lg: 1.8rem;
+      --font-display: "Fraunces", "Iowan Old Style", serif;
+      --font-body: "Work Sans", "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--text);
+      font-family: var(--font-body);
+      background: var(--bg);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* fixed grain overlay — never on a scrolling container, so it costs nothing to repaint */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.05;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .field-glow {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(48rem 30rem at 12% -6%, rgba(207, 106, 53, 0.16), transparent 60%),
+        radial-gradient(38rem 26rem at 106% 18%, rgba(205, 163, 85, 0.1), transparent 60%),
+        linear-gradient(185deg, #201712 0%, #17100b 55%, #140d09 100%);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4.5rem;
+    }
+
+    /* ---------- header ---------- */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .site-header.is-scrolled {
+      background: rgba(20, 13, 9, 0.82);
+      backdrop-filter: blur(14px);
+      border-bottom-color: var(--border);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .header-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 1.4rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+
+    .logo-mark {
+      width: 2.15rem;
+      height: 2.15rem;
+      border-radius: 0.7rem;
+      background: linear-gradient(150deg, var(--accent), var(--accent-deep));
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 20px rgba(207, 106, 53, 0.35);
+      flex-shrink: 0;
+    }
+
+    .logo-mark svg {
+      width: 1.15rem;
+      height: 1.15rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.6rem;
+      flex-wrap: wrap;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    nav a {
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 0.2rem;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 100%;
+      bottom: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: right 0.25s ease;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    nav a:hover::after {
+      right: 0;
+    }
+
+    /* ---------- hero ---------- */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2.5rem;
+      align-items: center;
+      padding-top: 3rem;
+    }
+
+    .hero-copy {
+      max-width: 40rem;
+    }
+
+    .hero-copy .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+      color: var(--brass);
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .hero-copy .eyebrow::before {
+      content: "";
+      width: 1.4rem;
+      height: 1px;
+      background: var(--brass);
+    }
+
+    .hero-copy h1 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(2.5rem, 4.6vw, 3.9rem);
+      line-height: 1.05;
+      margin-bottom: 1.2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-copy h1 em {
+      font-style: italic;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .hero-copy p {
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 1.8rem;
+      font-size: 1.05rem;
+      max-width: 34rem;
+    }
+
+    .hero-copy .buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 0.95rem 1.7rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+      font-weight: 600;
+      font-family: var(--font-body);
+      font-size: 0.96rem;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(140deg, var(--accent), var(--accent-deep));
+      color: #1a1108;
+      box-shadow: 0 16px 34px rgba(207, 106, 53, 0.28);
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 42px rgba(207, 106, 53, 0.3);
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(207, 106, 53, 0.4);
+      box-shadow: none;
+    }
+
+    .btn:focus-visible,
+    nav a:focus-visible,
+    .product button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--brass);
+      outline-offset: 2px;
+    }
+
+    /* ---------- hero rotating card ---------- */
+    .hero-image {
+      position: relative;
+      min-height: 380px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top, rgba(244, 233, 216, 0.08), transparent 45%),
+        linear-gradient(150deg, #29190f 0%, #1a1108 100%);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-image::before,
+    .hero-image::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      animation: float 13s ease-in-out infinite;
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    .hero-image::before {
+      width: 20rem;
+      height: 20rem;
+      top: -4rem;
+      right: -6rem;
+      background: rgba(207, 106, 53, 0.22);
+    }
+
+    .hero-image::after {
+      width: 13rem;
+      height: 13rem;
+      bottom: -3rem;
+      left: -4rem;
+      background: rgba(205, 163, 85, 0.16);
+      animation-duration: 17s;
+    }
+
+    .hero-card {
+      position: absolute;
+      inset: 1.4rem;
+      border-radius: 1.5rem;
+      background: rgba(244, 233, 216, 0.045);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      padding: 1.4rem;
+    }
+
+    .hero-card .media {
+      position: relative;
+      border-radius: 1.1rem;
+      overflow: hidden;
+    }
+
+    .hero-card img {
+      width: 100%;
+      height: 100%;
+      border-radius: 1.1rem;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-card .info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      align-self: flex-start;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--brass);
+      border: 1px solid rgba(205, 163, 85, 0.35);
+      border-radius: 999px;
+      padding: 0.3rem 0.7rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-card h2 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-card p {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.88rem;
+    }
+
+    .hero-card .price {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-top: 1rem;
+      color: var(--accent);
+    }
+
+    .hero-dots {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.9rem;
+    }
+
+    .hero-dot {
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      border: none;
+      background: rgba(244, 233, 216, 0.25);
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .hero-dot.active {
+      background: var(--accent);
+      transform: scale(1.25);
+    }
+
+    /* ---------- trust strip ---------- */
+    .trust-strip {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 1.2rem;
+      overflow: hidden;
+    }
+
+    .trust-item {
+      background: var(--bg-deep);
+      padding: 1.2rem 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .trust-item svg {
+      width: 1.3rem;
+      height: 1.3rem;
+      flex-shrink: 0;
+      color: var(--brass);
+    }
+
+    .cta-banner {
+      margin-top: 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.85rem 1.25rem;
+      border-radius: 999px;
+      background: rgba(207, 106, 53, 0.12);
+      border: 1px solid rgba(207, 106, 53, 0.35);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .cta-banner svg {
+      width: 1.1rem;
+      height: 1.1rem;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .store-info-card {
+      margin-top: 1.5rem;
+      padding: 1.25rem 1.4rem;
+      border-radius: 1.2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      line-height: 1.85;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .store-info-card strong {
+      color: var(--text);
+      font-family: var(--font-display);
+    }
+
+    .store-info-card a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .store-info-card a:hover {
+      text-decoration: underline;
+    }
+
+    .contact-item a.tel-link {
+      color: var(--text);
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-size: 1rem;
+    }
+
+    .contact-item a.tel-link:hover {
+      color: var(--accent);
+    }
+
+    /* ---------- sections ---------- */
+    .section {
+      margin-top: 5.5rem;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.6rem;
+    }
+
+    .section-head .kicker {
+      color: var(--brass);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+
+    .section h2 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(1.7rem, 3vw, 2.3rem);
+    }
+
+    .section > p {
+      color: var(--muted);
+      max-width: 60ch;
+      line-height: 1.75;
+      margin-bottom: 1.6rem;
+    }
+
+    .search-box {
+      display: flex;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      overflow: hidden;
+      max-width: 26rem;
+      margin-bottom: 1.9rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .search-box:focus-within {
+      border-color: rgba(207, 106, 53, 0.5);
+    }
+
+    .search-box input {
+      flex: 1;
+      border: none;
+      padding: 1rem 1.2rem;
+      background: transparent;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.98rem;
+      outline: none;
+    }
+
+    .search-box button {
+      border: none;
+      background: var(--surface-strong);
+      color: var(--text);
+      font-weight: 600;
+      padding: 0 1.3rem;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: background 0.2s ease;
+    }
+
+    .search-box button:hover {
+      background: rgba(207, 106, 53, 0.22);
+    }
+
+    .no-results {
+      display: none;
+      border: 1px dashed var(--border);
+      border-radius: 1.4rem;
+      padding: 2.6rem 1.5rem;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .no-results.show {
+      display: block;
+    }
+
+    .no-results strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    /* ---------- product grid ---------- */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .product {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+      position: relative;
+    }
+
+    .product::after {
+      content: "";
+      position: absolute;
+      inset: 7px;
+      border-radius: calc(var(--radius-lg) - 7px);
+      border: 1.5px dashed var(--stitch);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+    }
+
+    .product:hover {
+      transform: translateY(-6px);
+      border-color: rgba(207, 106, 53, 0.32);
+    }
+
+    .product:hover::after {
+      opacity: 0.35;
+    }
+
+    .product img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    .product .size-field {
+      display: grid;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+    }
+
+    .variant-row {
+      display: grid;
+      gap: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .color-options {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      align-items: center;
+      margin-bottom: 0.55rem;
+      padding-bottom: 0.35rem;
+      scrollbar-color: var(--accent) transparent;
+    }
+
+    .color-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-deep);
+      cursor: pointer;
+      color: var(--text);
+      font-size: 0.83rem;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .color-chip.active {
+      background: rgba(207, 106, 53, 0.15);
+      border-color: rgba(207, 106, 53, 0.45);
+    }
+
+    .color-chip img {
+      width: 24px;
+      height: 24px;
+      object-fit: cover;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .validation-message {
+      color: #d16035;
+      font-size: 0.83rem;
+      min-height: 1.1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .product .size-field label {
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .product .size-field select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 0.85rem 1rem;
+      background: var(--bg-deep);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      appearance: none;
+    }
+
+    .product button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .product-content {
+      padding: 1.35rem;
+    }
+
+    .product-content h3 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-content p {
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+      font-size: 0.93rem;
+      line-height: 1.6;
+    }
+
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .price-tag {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .product button {
+      padding: 0.8rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      background: var(--surface-strong);
+      color: var(--text);
+      transition: background 0.22s ease, border-color 0.22s ease;
+      font-weight: 600;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+    }
+
+    .product button:hover {
+      background: rgba(207, 106, 53, 0.22);
+      border-color: rgba(207, 106, 53, 0.4);
+    }
+
+    /* ---------- how it works ---------- */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.8rem;
+      position: relative;
+    }
+
+    .step .num {
+      font-family: var(--font-display);
+      font-size: 2.6rem;
+      font-weight: 600;
+      color: rgba(207, 106, 53, 0.4);
+      line-height: 1;
+      margin-bottom: 0.9rem;
+    }
+
+    .step h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    /* ---------- cart & checkout ---------- */
+    .cart-summary,
+    .checkout-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.6rem;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.16);
+      margin-bottom: 1.5rem;
+    }
+
+    .cart-summary h3,
+    .checkout-card h3 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      margin-bottom: 1.1rem;
+    }
+
+    .cart-items {
+      display: grid;
+      gap: 0.85rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.95rem 1rem;
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 1.2rem;
+      align-items: center;
+    }
+
+    .cart-item span {
+      color: var(--muted);
+    }
+
+    .checkout-card label {
+      display: block;
+      margin-bottom: 0.6rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .checkout-card input,
+    .checkout-card textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 0.95rem;
+      padding: 0.95rem 1rem;
+      background: var(--bg-deep);
+      color: var(--text);
+      font-family: var(--font-body);
+      margin-bottom: 1rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .checkout-card input:focus,
+    .checkout-card textarea:focus {
+      outline: none;
+      border-color: rgba(207, 106, 53, 0.5);
+    }
+
+    .field-hint {
+      font-size: 0.83rem;
+      color: var(--muted);
+      margin: -0.5rem 0 1.1rem;
+    }
+
+    .checkout-card textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .cart-item button {
+      background: rgba(206, 84, 61, 0.15);
+      color: var(--text);
+      border: 1px solid rgba(206, 84, 61, 0.3);
+      border-radius: 999px;
+      padding: 0.45rem 0.9rem;
+      cursor: pointer;
+      font-size: 0.85rem;
+      margin-top: 0.4rem;
+      font-family: var(--font-body);
+    }
+
+    .cart-item button:hover {
+      background: rgba(206, 84, 61, 0.25);
+    }
+
+    .payment-options {
+      display: grid;
+      gap: 0.75rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .payment-option {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .order-note {
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .order-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .order-actions strong {
+      font-family: var(--font-display);
+    }
+
+    .empty-cart {
+      color: var(--muted);
+      padding: 1rem 0;
+    }
+
+    /* ---------- quality / why choose us ---------- */
+    .quality-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .quality-grid .card:nth-child(3) {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+    }
+
+    .card .icon {
+      width: 2.6rem;
+      height: 2.6rem;
+      border-radius: 0.9rem;
+      background: rgba(207, 106, 53, 0.16);
+      color: var(--accent);
+      display: grid;
+      place-items: center;
+      margin-bottom: 1.1rem;
+    }
+
+    .card .icon svg {
+      width: 1.35rem;
+      height: 1.35rem;
+    }
+
+    .card h3 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      margin-bottom: 0.7rem;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    /* ---------- contact ---------- */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 1.5rem;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      padding: 1rem 1.1rem;
+      border-radius: 1.2rem;
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+    }
+
+    .contact-item span {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .contact-item strong {
+      font-size: 1rem;
+      color: var(--text);
+      font-family: var(--font-display);
+    }
+
+    /* ---------- toast ---------- */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 1.5rem;
+      transform: translateX(-50%) translateY(120%);
+      background: rgba(20, 13, 9, 0.96);
+      border: 1px solid rgba(207, 106, 53, 0.3);
+      color: var(--text);
+      padding: 1rem 1.4rem;
+      border-radius: 1.2rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      z-index: 30;
+      min-width: 260px;
+      text-align: center;
+      font-size: 0.94rem;
+    }
+
+    .whatsapp-fab {
+      position: fixed;
+      right: 1.15rem;
+      bottom: 1.15rem;
+      z-index: 40;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.95rem 1rem;
+      border-radius: 999px;
+      background: #25d366;
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .whatsapp-fab:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 46px rgba(0, 0, 0, 0.3);
+    }
+
+    .whatsapp-fab svg {
+      width: 1.2rem;
+      height: 1.2rem;
+      fill: white;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background: rgba(0, 0, 0, 0.65);
+      padding: 1.5rem;
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-panel {
+      max-width: 28rem;
+      width: 100%;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      background: rgba(28, 20, 15, 0.96);
+      border: 1px solid rgba(207, 106, 53, 0.2);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      text-align: center;
+    }
+
+    .modal-panel h3 {
+      margin-bottom: 0.85rem;
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--text);
+    }
+
+    .modal-panel p {
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    .map-frame {
+      width: 100%;
+      border-radius: 1.2rem;
+      overflow: hidden;
+      margin-top: 1rem;
+      aspect-ratio: 16 / 9;
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+    }
+
+    .map-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ---------- footer ---------- */
+    footer {
+      margin-top: 5.5rem;
+      border-top: 1px solid var(--border);
+      padding-top: 2.6rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .footer-brand .logo {
+      margin-bottom: 0.9rem;
+    }
+
+    .footer-brand p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.92rem;
+      max-width: 26rem;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-display);
+      font-size: 0.98rem;
+      font-weight: 600;
+      margin-bottom: 0.9rem;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .footer-col a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+
+    .footer-col a:hover {
+      color: var(--text);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      padding-top: 1.6rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-16px) translateX(10px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .hero-image::before, .hero-image::after { animation: none; }
+      .section { transition: none; opacity: 1; transform: none; }
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card .media {
+        aspect-ratio: 16 / 9;
+      }
+
+      .contact-grid,
+      .quality-grid,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .quality-grid .card:nth-child(3) {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .page {
+        padding: 0 1.1rem 3rem;
+      }
+
+      .hero {
+        padding-top: 2rem;
+      }
+
+      nav {
+        font-size: 0.88rem;
+        gap: 1rem;
+      }
+
+      .hero-image {
+        min-height: 300px;
+      }
+
+      .section {
+        margin-top: 4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="field-glow"></div>
+
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a href="#" class="logo">
+        <span class="logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 15c1.5-4 5.5-7 10-7 3.4 0 5.2 2.3 4.2 5C16.4 15.4 12.9 17 9 17H3z" stroke="#1a1108" stroke-width="1.6" fill="#1a1108"/>
+          </svg>
+        </span>
+        Collection Shoe Center
+      </a>
+      <nav>
+        <a id="navShop" href="#shop">Shop</a>
+        <a id="navHow" href="#how">How it works</a>
+        <a id="navCart" href="#cart"><span id="navCartLabel">My Cart</span> (<span id="cartCount">0</span>)</a>
+        <a id="navQuality" href="#quality">Quality</a>
+        <a id="navContact" href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page">
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow" id="heroLocation">Janakpurdham, Dhanusha</span>
+        <h1>Step into comfort with shoes built for <em>your</em> everyday stride.</h1>
+        <p>Collection Shoe Center brings together lightweight sneakers, supportive trainers, and elegant casual shoes — handpicked for quality and priced so a good pair doesn't cost a compromise.</p>
+        <div class="buttons">
+          <a id="heroButton1" href="#shop" class="btn btn-primary">Browse the collection</a>
+          <a id="heroButton2" href="#contact" class="btn btn-secondary">Visit our store</a>
+        </div>
+        <p class="cta-banner" id="ctaTagline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+          In-store pickup &amp; local delivery available.
+        </p>
+      </div>
+
+      <div class="hero-image">
+        <div class="hero-card">
+          <div class="media">
+            <img id="heroImage" src="" alt="" />
+          </div>
+          <div class="info">
+            <div>
+              <span class="hero-tag">Featured</span>
+              <h2 id="heroTitle"></h2>
+              <p id="heroDescription"></p>
+            </div>
+            <div>
+              <div class="price" id="heroPrice"></div>
+              <div class="hero-dots" id="heroDots"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust-strip">
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+        Handpicked for quality and fit
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="14" height="10" rx="1.5"/><path d="M17 10h2.4a1 1 0 0 1 .9.55L22 13.5V16a1 1 0 0 1-1 1h-1"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="17.5" cy="17.5" r="1.5"/></svg>
+        Delivery arranged on request
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>
+        Pay with E-Sewa or Cash on Delivery
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21v-3a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v3"/><circle cx="12" cy="7" r="4"/></svg>
+        Sizing help, in person or by phone
+      </div>
+    </div>
+
+    <section id="shop" class="section">
+      <div class="section-head">
+        <div>
+          <span class="kicker">The Collection</span>
+          <h2>Shop affordable, high-quality shoes</h2>
+        </div>
+      </div>
+      <p>Find the right pair for your next walk, workday, or weekend adventure. Search by name or style to narrow things down.</p>
+
+      <div class="search-box">
+        <input id="searchInput" type="search" placeholder="Search shoes, runners, boots..." aria-label="Search products" />
+        <button id="searchButton" type="button">Search</button>
+      </div>
+
+      <div id="productGrid" class="product-grid">
+        <article class="product" data-name="flex runner" data-price="7599" data-sizes="[39,40,41,42,43,44]" data-colors='[{"colorName":"Black","imageUrl":"https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=800&q=80"},{"colorName":"White","imageUrl":"https://images.unsplash.com/photo-1519741491630-85d22743f6cc?auto=format&fit=crop&w=800&q=80"}]'>
+          <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=800&q=80" alt="Flex Runner lightweight sneaker" />
+          <div class="product-content">
+            <h3>Flex Runner</h3>
+            <p>Lightweight running shoes with responsive foam and breathable upper for everyday comfort.</p>
+            <div class="variant-row">
+              <div class="color-options"></div>
+              <div class="size-field">
+                <label for="size-flex-runner">Size</label>
+                <select id="size-flex-runner" required>
+                  <option value="" disabled selected>Select size</option>
+                </select>
+              </div>
+            </div>
+            <div class="validation-message" aria-live="polite"></div>
+            <div class="product-footer">
+              <div class="price-tag">Rs 7,599</div>
+              <button class="add-button" disabled>Add to cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product" data-name="classic lace-up" data-price="5499" data-sizes="[38,39,40,41,42,43,44]" data-colors='[{"colorName":"Black","imageUrl":"https://ectomorphing.com/wp-content/uploads/2022/05/pexels-jordan-hyde-1070360-1-1024x683.jpg"},{"colorName":"Tan","imageUrl":"https://images.unsplash.com/photo-1528701800489-20a23c6959b5?auto=format&fit=crop&w=800&q=80"}]'>
+          <img src="https://ectomorphing.com/wp-content/uploads/2022/05/pexels-jordan-hyde-1070360-1-1024x683.jpg" alt="Classic Lace-Up casual shoe" />
+          <div class="product-content">
+            <h3>Classic Lace-Up</h3>
+            <p>Everyday casual shoe with soft lining and reliable support for work or city strolls.</p>
+            <div class="variant-row">
+              <div class="color-options"></div>
+              <div class="size-field">
+                <label for="size-classic-lace-up">Size</label>
+                <select id="size-classic-lace-up" required>
+                  <option value="" disabled selected>Select size</option>
+                </select>
+              </div>
+            </div>
+            <div class="validation-message" aria-live="polite"></div>
+            <div class="product-footer">
+              <div class="price-tag">Rs 5,499</div>
+              <button class="add-button" disabled>Add to cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product" data-name="classic level up" data-price="3499" data-sizes="[39,40,41,42,43,44,45]" data-colors='[{"colorName":"Brown","imageUrl":"https://wallpaperaccess.com/full/680096.jpg"},{"colorName":"Black","imageUrl":"https://images.unsplash.com/photo-1528701800489-20a23c6959b5?auto=format&fit=crop&w=800&q=80"}]'>
+          <img src="https://wallpaperaccess.com/full/680096.jpg" alt="Classic Level Up brown leather shoe" />
+          <div class="product-content">
+            <h3>Classic Level Up</h3>
+            <p>Elegant brown leather shoe with a polished finish and comfortable cushioning for daily wear.</p>
+            <div class="variant-row">
+              <div class="color-options"></div>
+              <div class="size-field">
+                <label for="size-classic-level-up">Size</label>
+                <select id="size-classic-level-up" required>
+                  <option value="" disabled selected>Select size</option>
+                </select>
+              </div>
+            </div>
+            <div class="validation-message" aria-live="polite"></div>
+            <div class="product-footer">
+              <div class="price-tag">Rs 3,499</div>
+              <button class="add-button" disabled>Add to cart</button>
+            </div>
+          </div>
+        </article>
+        <article class="product" data-name="glide horizon" data-price="3499" data-sizes="[39,40,41,42,43,44]" data-colors='[{"colorName":"Blue","imageUrl":"https://imgs.search.brave.com/Tef_dS6iGzvwIsu0vsborFbyMKgPxeKDiQTnNbHUVLI/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE1/NTIzNDYxNTQtMjFk/MzI4MTBhYmEzP2Zt/PWpwZyZxPTYwJnc9/MzAwMCZhdXRvPWZv/cm1hdCZmaXQ9Y3Jv/cCZpeGxpYj1yYi00/LjEuMCZpeGlkPU0z/d3hNakEzZkRCOE1I/eHpaV0Z5WTJoOE1U/aDhmSE51WldGclpY/SnpmR1Z1ZkRCOGZE/QjhmSHd3"},{"colorName":"Gray","imageUrl":"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80"}]'>
+          <img src="https://imgs.search.brave.com/Tef_dS6iGzvwIsu0vsborFbyMKgPxeKDiQTnNbHUVLI/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE1/NTIzNDYxNTQtMjFk/MzI4MTBhYmEzP2Zt/PWpwZyZxPTYwJnc9/MzAwMCZhdXRvPWZv/cm1hdCZmaXQ9Y3Jv/cCZpeGxpYj1yYi00/LjEuMCZpeGlkPU0z/d3hNakEzZkRCOE1I/eHpaV0Z5WTJoOE1U/aDhmSE51WldGclpY/SnpmR1Z1ZkRCOGZE/QjhmSHd3" alt="Glide Horizon premium shoe" />
+          <div class="product-content">
+            <h3>Glide Horizon</h3>
+            <p>Lightweight and stylish shoes designed for everyday comfort with a modern silhouette and soft support.</p>
+            <div class="variant-row">
+              <div class="color-options"></div>
+              <div class="size-field">
+                <label for="size-glide-horizon">Size</label>
+                <select id="size-glide-horizon" required>
+                  <option value="" disabled selected>Select size</option>
+                </select>
+              </div>
+            </div>
+            <div class="validation-message" aria-live="polite"></div>
+            <div class="product-footer">
+              <div class="price-tag">Rs 3,499</div>
+              <button class="add-button" disabled>Add to cart</button>
+            </div>
+          </div>
+        </article>
+        <article class="product" data-name="trail explorer" data-price="6000" data-sizes="[39,40,41,42,43,44]" data-colors='[{"colorName":"Black","imageUrl":"https://www.kinaun.com/wp-content/uploads/products/tbl-tabolu-black-white-premium-sports-shoes-for-men.jpg"},{"colorName":"Brown","imageUrl":"https://images.unsplash.com/photo-1528701800489-20a23c6959b5?auto=format&fit=crop&w=800&q=80"}]'>
+          <img src="https://www.kinaun.com/wp-content/uploads/products/tbl-tabolu-black-white-premium-sports-shoes-for-men.jpg" alt="Trail Explorer outdoor shoe" />
+          <div class="product-content">
+            <h3>Trail Explorer</h3>
+            <p>Durable outdoor shoe with rugged tread and protective cushioning for hikes and weekend escapes.</p>
+            <div class="variant-row">
+              <div class="color-options"></div>
+              <div class="size-field">
+                <label for="size-trail-explorer">Size</label>
+                <select id="size-trail-explorer" required>
+                  <option value="" disabled selected>Select size</option>
+                </select>
+              </div>
+            </div>
+            <div class="validation-message" aria-live="polite"></div>
+            <div class="product-footer">
+              <div class="price-tag">Rs 6,000</div>
+              <button class="add-button" disabled>Add to cart</button>
+            </div>
+          </div>
+        </article>
+        <article class="product" data-name="skydrift kicks" data-price="3799" data-sizes="[39,40,41,42,43,44]" data-colors='[{"colorName":"White","imageUrl":"https://images.unsplash.com/photo-1605523741177-cd660595c2cf?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c25lYWtlcnMlMjB3YWxscGFwZXJ8ZW58MHx8MHx8fDA%3D"},{"colorName":"Blue","imageUrl":"https://images.unsplash.com/photo-1528701800489-20a23c6959b5?auto=format&fit=crop&w=800&q=80"}]'>
+          <img src="https://images.unsplash.com/photo-1605523741177-cd660595c2cf?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c25lYWtlcnMlMjB3YWxscGFwZXJ8ZW58MHx8MHx8fDA%3D" alt="Skydrift Kicks sneaker" />
+          <div class="product-content">
+            <h3>Skydrift Kicks</h3>
+            <p>Airy sneakers with sleek style and cushioned support made for fast city steps and weekend wanderings.</p>
+            <div class="variant-row">
+              <div class="color-options"></div>
+              <div class="size-field">
+                <label for="size-skydrift-kicks">Size</label>
+                <select id="size-skydrift-kicks" required>
+                  <option value="" disabled selected>Select size</option>
+                </select>
+              </div>
+            </div>
+            <div class="validation-message" aria-live="polite"></div>
+            <div class="product-footer">
+              <div class="price-tag">Rs 3,799</div>
+              <button class="add-button" disabled>Add to cart</button>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div id="noResults" class="no-results">
+        <strong>No shoes match that search</strong>
+        Try a different word, or clear the search to see the full collection.
+      </div>
+    </section>
+
+    <section id="how" class="section">
+      <div class="section-head">
+        <div>
+          <span class="kicker">Ordering</span>
+          <h2>How it works</h2>
+        </div>
+      </div>
+      <p>No account or app needed — order in three simple steps and we take it from there.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="num">01</div>
+          <h3>Add to your cart</h3>
+          <p>Browse the collection and add whichever pairs catch your eye. Your cart total updates as you go.</p>
+        </div>
+        <div class="step">
+          <div class="num">02</div>
+          <h3>Share delivery details</h3>
+          <p>Enter your phone number, address, and a landmark so we know exactly where to send your order.</p>
+        </div>
+        <div class="step">
+          <div class="num">03</div>
+          <h3>We confirm and deliver</h3>
+          <p>Your order request lands directly in our inbox — we call to confirm payment and delivery, then get your shoes moving.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="cart" class="section">
+      <div class="section-head">
+        <div>
+          <span class="kicker">Checkout</span>
+          <h2>Your cart & checkout</h2>
+        </div>
+      </div>
+      <p>Review the items in your cart, choose a payment preference, and send your order request straight to the shop.</p>
+
+      <div class="cart-summary">
+        <h3>Cart items</h3>
+        <div id="cartItems" class="cart-items">
+          <div class="empty-cart">Your cart is empty. Add shoes to start checkout.</div>
+        </div>
+        <div class="order-actions">
+          <div><strong>Total:</strong> <span id="cartTotal">Rs 0</span></div>
+          <button id="clearCartButton" class="btn btn-secondary">Clear cart</button>
+        </div>
+      </div>
+
+      <div class="checkout-card">
+        <h3>Delivery & payment</h3>
+        <label for="deliveryPhone">Phone number</label>
+        <input id="deliveryPhone" type="tel" placeholder="Enter phone number" maxlength="10" inputmode="numeric" />
+        <p class="field-hint">Phone must start with 98 and contain 10 digits.</p>
+        <label for="deliveryEmail">Email</label>
+        <input id="deliveryEmail" type="email" placeholder="Enter email address" />
+        <label for="deliveryLandmark">Landmark</label>
+        <input id="deliveryLandmark" type="text" placeholder="Enter nearby landmark" />
+        <label for="deliveryAddress">Delivery address</label>
+        <textarea id="deliveryAddress" placeholder="Enter full delivery address"></textarea>
+        <label>Payment method</label>
+        <div class="payment-options">
+          <label class="payment-option"><input type="radio" name="paymentMethod" value="E-Sewa" checked /> E-Sewa</label>
+          <label class="payment-option"><input type="radio" name="paymentMethod" value="Cash on Delivery" /> Cash on Delivery</label>
+          <label class="payment-option"><input type="radio" name="paymentMethod" value="Email Invoice" /> Email Invoice</label>
+        </div>
+        <p class="order-note">Order details will be sent automatically to the shop email: <strong id="shopEmail">billubhatora@gmail.com</strong>.</p>
+        <button id="sendOrderButton" class="btn btn-primary">Send order request</button>
+      </div>
+    </section>
+
+    <section id="quality" class="section">
+      <div class="section-head">
+        <div>
+          <span class="kicker">Our Promise</span>
+          <h2>Why choose us</h2>
+        </div>
+      </div>
+      <p>Our collection combines quality materials, skilled construction, and value pricing — every pair is selected to deliver the comfort you expect with the durability you need.</p>
+      <div class="quality-grid">
+        <div class="card">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <h3>Quality craftsmanship</h3>
+          <p>Premium stitching, reinforced soles, and soft linings ensure every shoe is built to last through daily wear.</p>
+        </div>
+        <div class="card">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M9 10.5c0-1.4 1.3-2.5 3-2.5s3 1 3 2.2c0 2.8-6 1.6-6 4.4 0 1.3 1.3 2.4 3 2.4s3-1 3-2.3"/></svg>
+          </div>
+          <h3>Affordable pricing</h3>
+          <p>We help you get more footwear for less, without compromising on comfort, style, or support.</p>
+        </div>
+        <div class="card">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-4.5-7-10a7 7 0 0 1 14 0c0 5.5-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg>
+          </div>
+          <div>
+            <h3>Rooted in Janakpurdham</h3>
+            <p>We're a local shop on Shiv Chowk, not a faceless warehouse — every order is packed and checked by hand before it leaves our store, and you're always welcome to stop by and try a pair on first.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="section-head">
+        <div>
+          <span class="kicker">Get in touch</span>
+          <h2>Contact & visit us</h2>
+        </div>
+      </div>
+      <p>Reach out for personalised sizing advice, order support, or to visit our shop in person. We're happy to help you find your best pair.</p>
+      <div class="store-info-card" id="storeInfoCard">
+        <strong>Collection Shoe Center</strong> 👟<br />
+        📍 <span id="storeInfoAddress">Shiv Chowk, Janakpurdham, Dhanusha</span><br />
+        🕒 Open Daily: <span id="storeInfoHours">9:00 AM – 8:00 PM</span><br />
+        📞 <a id="storeInfoPhone" href="tel:+9779807693360">+977 9807693360</a><br />
+        ✉️ <a id="storeInfoEmail" href="mailto:billubhatora@gmail.com">billubhatora@gmail.com</a><br />
+        💬 <a id="storeInfoWhatsApp" href="https://wa.me/9779807693360?text=Hi%20Collection%20Shoe%20Center,%20I%20have%20a%20question%20about%20your%20shoes." target="_blank" rel="noopener noreferrer">Click here to chat on WhatsApp</a>
+      </div>
+      <div class="contact-grid">
+        <div class="card">
+          <h3>Store location</h3>
+          <div class="contact-list">
+            <div class="contact-item">
+              <span>Address</span>
+              <strong id="contactAddress">Shiv Chowk, Janakpurdham, Dhanusha, Nepal</strong>
+            </div>
+            <div class="contact-item">
+              <span>Phone</span>
+              <a id="contactPhone" class="tel-link" href="tel:+9779807693360">+977 9807693360</a>
+            </div>
+            <div class="contact-item">
+              <span>Email</span>
+              <strong id="contactEmail">billubhatora@gmail.com</strong>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Opening hours</h3>
+          <div class="contact-list">
+            <div class="contact-item">
+              <strong>Open every day</strong>
+              <span id="contactHours">9:00 AM – 8:00 PM</span>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Find us on the map</h3>
+          <div class="map-frame">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.7946042826224!2d85.9286944!3d26.7292778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ef85b23f4b2d1d%3A0x0!2zMjbCsDQzJzQ1LjQiTiA4NcKwNTUnNDMuMyJF!5e0!3m2!1sen!2snp!4v1700000000000" loading="lazy" referrerpolicy="no-referrer-when-downgrade" aria-label="Map to Shiv Chowk, Janakpurdham"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="whatsapp-fab-wrap"></div>
+    <a href="https://wa.me/9779807693360?text=Hi%20Collection%20Shoe%20Center,%20I%20have%20a%20question%20about%20your%20shoes." target="_blank" rel="noopener noreferrer" class="whatsapp-fab">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.672.148-.198.297-.767.967-.94 1.165-.173.198-.347.223-.644.075-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.173.198-.297.297-.496.099-.198.05-.372-.025-.52-.075-.148-.672-1.62-.92-2.22-.242-.583-.487-.504-.672-.513l-.573-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.1 3.2 5.077 4.487.709.306 1.262.489 1.693.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.412.248-.694.248-1.288.173-1.412-.074-.124-.273-.198-.57-.347m-5.42 7.433h-.001C6.99 21.807 2.192 17.045 2.192 11.17 2.192 5.26 7.296.671 13.302.671c3.546 0 6.874 1.383 9.376 3.893 2.498 2.503 3.888 5.826 3.888 9.383 0 6.598-5.348 11.948-11.948 11.948m0-22.147C7.015.287 1.986 5.317 1.986 11.17c0 5.236 3.4 9.818 8.212 11.398v-4.02l-1.713-1.647c-.404-.39-.748-.76-1.04-1.084-.348-.38-.747-.856-.747-1.594 0-.738.394-1.156.537-1.312.146-.158.32-.199.53-.199.214 0 .468.007.713.013.23.006.54.08.774.37.23.28.775.96.84 1.033.065.077.13.156.24.242.103.083.205.18.295.29.17.185.34.37.504.602.16.23.34.518.46.69.198.29.41.41.566.51.174.11.35.09.48.057.13-.033.71-.26.86-.31.146-.051.3-.09.46-.042.158.05.742.304 1.02.45.28.146.51.34.802.05.29-.29.903-.97 1.01-1.16.11-.19.22-.389.29-.56.079-.19.18-.29.29-.34.11-.05.25-.04.378.0.13.03.7.24.358.645-.343.405-1.28 1.493-1.37 1.60-.087.106-.18.17-.28.21-.055.02-.11.026-.165.03-.012.0-.024.002-.036.003-.066.0-.154-.02-.28-.12-.2-.18-.62-.58-1.11-1.01zm0 0"/></svg>
+      WhatsApp us
+    </a>
+    <div id="orderSuccessModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="orderSuccessTitle">
+      <div class="modal-panel">
+        <h3 id="orderSuccessTitle">Order request received!</h3>
+        <p>Thank you for shopping with Collection Shoe Center. We have received your order request and will contact you shortly to confirm delivery and payment.</p>
+        <p><strong>We will reach out to you soon on your phone number.</strong></p>
+        <button id="closeModalButton" class="btn btn-primary">Close</button>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a id="footerBrandTitle" href="#" class="logo">
+            <span class="logo-mark">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 15c1.5-4 5.5-7 10-7 3.4 0 5.2 2.3 4.2 5C16.4 15.4 12.9 17 9 17H3z" stroke="#1a1108" stroke-width="1.6" fill="#1a1108"/>
+              </svg>
+            </span>
+            <span id="footerBrandTitleText">Collection Shoe Center</span>
+          </a>
+          <p id="footerBrandCopy">High-quality footwear for every budget, sold from our store on Shiv Chowk in Janakpurdham — crafted with care and built to last.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#shop">Shop the collection</a></li>
+            <li><a href="#how">How ordering works</a></li>
+            <li><a href="#cart">Cart & checkout</a></li>
+            <li><a href="#quality">Why choose us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Visit or call</h4>
+          <ul>
+            <li>Shiv Chowk, Janakpurdham, Dhanusha</li>
+            <li><a id="footerPhone" href="tel:+9779807693360">+977 9807693360</a></li>
+            <li><a href="mailto:billubhatora@gmail.com">billubhatora@gmail.com</a></li>
+            <li>Open daily, 9:00 AM – 8:00 PM</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span id="footerBottomLeft">© 2026 Collection Shoe Center</span>
+        <span id="footerBottomRight">Janakpurdham, Dhanusha, Nepal</span>
+      </div>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast">Added to cart!</div>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="pokimon.js"></script>
+</body>
+</html>
