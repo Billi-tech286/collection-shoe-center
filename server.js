@@ -14,9 +14,15 @@ if (!ADMIN_EMAIL || !ADMIN_PASS || !SESSION_SECRET || !OWNER_EMAIL) {
   throw new Error('Missing required environment variables: ADMIN_EMAIL, ADMIN_PASS, SESSION_SECRET, OWNER_EMAIL');
 }
 
-const DATA_DIR = __dirname;
+const DATA_DIR = process.env.DATA_DIR ? path.resolve(process.env.DATA_DIR) : __dirname;
 const PRODUCTS_FILE = path.join(DATA_DIR, 'products.json');
 const DATA_FILE = path.join(DATA_DIR, 'data.json');
+
+async function ensureDataDir() {
+  await fs.mkdir(DATA_DIR, { recursive: true });
+}
+
+ensureDataDir();
 
 if (process.env.NODE_ENV === 'production') app.set('trust proxy', 1);
 app.use(express.json({ limit: '10mb' }));
