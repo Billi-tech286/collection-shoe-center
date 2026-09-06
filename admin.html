@@ -259,6 +259,7 @@
 
   <div id="toast" class="toast"></div>
 
+  <script src="api-config.js"></script>
   <script>
   (function(){
     const authArea = document.getElementById('authArea');
@@ -284,7 +285,7 @@
     }
 
     async function api(path, opts) {
-      const resp = await fetch(path, Object.assign({ credentials: 'same-origin' }, opts || {}));
+      const resp = await fetch(API_BASE + path, Object.assign({ credentials: 'include' }, opts || {}));
       const data = await resp.json().catch(() => ({}));
       if (!resp.ok) throw new Error(data.error || 'Request failed');
       return data;
@@ -365,7 +366,7 @@
 
     window.addEventListener('pagehide', () => {
       if (panel.style.display !== 'none') {
-        navigator.sendBeacon('/api/logout');
+        navigator.sendBeacon(API_BASE + '/api/logout');
         lockPanel();
       }
     });

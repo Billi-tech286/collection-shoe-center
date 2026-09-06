@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     message.textContent = "Submitting your order...";
     message.className = "message";
     try {
-      const response = await fetch("/api/order-request", {
+      const response = await fetch(API_BASE + "/api/order-request", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

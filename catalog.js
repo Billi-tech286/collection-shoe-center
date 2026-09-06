@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const response = await fetch("/api/products");
+    const response = await fetch(API_BASE + "/api/products");
     allProducts = response.ok ? await response.json() : [];
   } catch (error) { allProducts = []; }
   search.value = params.get("search") || "";

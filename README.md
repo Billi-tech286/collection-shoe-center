@@ -37,6 +37,7 @@ $env:ADMIN_EMAIL = "admin@example.com"
 $env:ADMIN_PASS = "use-a-long-random-password"
 $env:SESSION_SECRET = "use-a-long-random-secret"
 $env:OWNER_EMAIL = "owner@example.com"
+$env:DATA_DIR = (Get-Location).Path
 npm start
 ```
 
@@ -53,5 +54,6 @@ Without SMTP settings, requests are logged by the server for local development.
 Notes
 
 - The server stores products in `products.json` and settings/hero in `data.json`.
+- Set `DATA_DIR` when deploying so the JSON files live on persistent storage; the server prints the resolved directory at startup.
 - Admin login uses server-side session cookies; protected API endpoints are under `/api/*`.
 - For production, change `SESSION_SECRET` and `ADMIN_PASS` and run behind HTTPS.

@@ -9,6 +9,7 @@ const ADMIN_EMAIL = String(process.env.ADMIN_EMAIL || '').trim().toLowerCase();
 const ADMIN_PASS = process.env.ADMIN_PASS || '';
 const SESSION_SECRET = process.env.SESSION_SECRET || '';
 const OWNER_EMAIL = process.env.OWNER_EMAIL || '';
+const FRONTEND_ORIGIN = String(process.env.FRONTEND_ORIGIN || '').trim().replace(/\/$/, '');
 
 if (!ADMIN_EMAIL || !ADMIN_PASS || !SESSION_SECRET || !OWNER_EMAIL) {
   throw new Error('Missing required environment variables: ADMIN_EMAIL, ADMIN_PASS, SESSION_SECRET, OWNER_EMAIL');
@@ -25,13 +26,24 @@ async function ensureDataDir() {
 ensureDataDir();
 
 if (process.env.NODE_ENV === 'production') app.set('trust proxy', 1);
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (FRONTEND_ORIGIN && origin === FRONTEND_ORIGIN) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  }
+  if (req.method === 'OPTIONS') return res.sendStatus(204);
+  next();
+});
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
   secret: SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'lax', secure: process.env.NODE_ENV === 'production' }
+  cookie: { maxAge: 24 * 60 * 60 * 1000, httpOnly: true, sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', secure: process.env.NODE_ENV === 'production' }
 }));
 
 app.use(express.static(DATA_DIR));
@@ -46,7 +58,9 @@ async function readJSON(file, fallback) {
 }
 
 async function writeJSON(file, data) {
-  await fs.writeFile(file, JSON.stringify(data, null, 2), 'utf8');
+  const tempFile = `${file}.${process.pid}.tmp`;
+  await fs.writeFile(tempFile, JSON.stringify(data, null, 2), 'utf8');
+  await fs.rename(tempFile, file);
 }
 
 function requireAuth(req, res, next) {
@@ -295,6 +309,15 @@ app.post('/api/site-content', requireAuth, async (req, res) => {
   res.json(d.siteContent);
 });
 
-app.listen(PORT, () => {
-  console.log(`Server listening on http://localhost:${PORT}`);
+async function startServer() {
+  await ensureDataDir();
+  app.listen(PORT, () => {
+    console.log(`Server listening on http://localhost:${PORT}`);
+    console.log(`Persistent data directory: ${DATA_DIR}`);
+  });
+}
+
+startServer().catch(error => {
+  console.error('Could not start server:', error);
+  process.exitCode = 1;
 });

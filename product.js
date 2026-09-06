@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const response = await fetch("/api/products");
+    const response = await fetch(API_BASE + "/api/products");
     const products = response.ok ? await response.json() : [];
     product = products.find((item) => String(item.id) === String(id));
   } catch (error) { product = null; }

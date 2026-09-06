@@ -275,7 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadProductsFromServer() {
     try {
-      const resp = await fetch("/api/products");
+      const resp = await fetch(API_BASE + "/api/products");
       if (!resp.ok) return null;
       const list = await resp.json();
       return Array.isArray(list) && list.length ? list : null;
@@ -297,9 +297,9 @@ document.addEventListener("DOMContentLoaded", () => {
   async function applySiteData() {
     try {
       const [settingsResp, contentResp, heroResp] = await Promise.all([
-        fetch("/api/settings"),
-        fetch("/api/site-content"),
-        fetch("/api/hero")
+        fetch(API_BASE + "/api/settings"),
+        fetch(API_BASE + "/api/site-content"),
+        fetch(API_BASE + "/api/hero")
       ]);
       const settings = settingsResp.ok ? await settingsResp.json() : {};
       const content = contentResp.ok ? await contentResp.json() : {};
@@ -371,7 +371,7 @@ document.addEventListener("DOMContentLoaded", () => {
   async function loadReviews() {
     if (!reviewList) return;
     try {
-      const response = await fetch("/api/reviews");
+      const response = await fetch(API_BASE + "/api/reviews");
       renderReviews(response.ok ? await response.json() : []);
     } catch (error) {
       renderReviews([]);
@@ -406,7 +406,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const file = reviewPhoto?.files?.[0];
       if (file) photo = await new Promise((resolve) => { const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.readAsDataURL(file); });
       try {
-        const response = await fetch("/api/reviews", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: $("#reviewName").value.trim(), rating, text: $("#reviewText").value.trim(), photo }) });
+        const response = await fetch(API_BASE + "/api/reviews", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: $("#reviewName").value.trim(), rating, text: $("#reviewText").value.trim(), photo }) });
         const data = await response.json().catch(() => ({}));
         if (!response.ok) throw new Error(data.error || "Could not submit review");
         reviewForm.reset(); rating = 0; updateStars(); reviewPhotoPreview.style.display = "none"; reviewMessage.textContent = "Thank you. Your review is awaiting approval.";
@@ -526,7 +526,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value || "";
     sendOrderButton.disabled = true;
     try {
-      const response = await fetch("/api/order-request", {
+      const response = await fetch(API_BASE + "/api/order-request", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
