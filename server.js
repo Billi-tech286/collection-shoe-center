@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const { MongoClient } = require('mongodb');
 const fs = require('fs').promises;
 const path = require('path');
 
@@ -18,9 +19,12 @@ if (!ADMIN_EMAIL || !ADMIN_PASS || !SESSION_SECRET || !OWNER_EMAIL) {
 const DATA_DIR = process.env.DATA_DIR ? path.resolve(process.env.DATA_DIR) : __dirname;
 const PRODUCTS_FILE = path.join(DATA_DIR, 'products.json');
 const DATA_FILE = path.join(DATA_DIR, 'data.json');
+const MONGODB_URI = String(process.env.MONGODB_URI || '').trim();
+const MONGODB_DB = String(process.env.MONGODB_DB || 'collection_shoe_center').trim();
+let storageCollection = null;
 
 async function ensureDataDir() {
-  await fs.mkdir(DATA_DIR, { recursive: true });
+  if (!MONGODB_URI) await fs.mkdir(DATA_DIR, { recursive: true });
 }
 
 ensureDataDir();
@@ -49,6 +53,10 @@ app.use(session({
 app.use(express.static(DATA_DIR));
 
 async function readJSON(file, fallback) {
+  if (storageCollection) {
+    const stored = await storageCollection.findOne({ key: file === PRODUCTS_FILE ? 'products' : 'data' });
+    return stored ? stored.value : fallback;
+  }
   try {
     const txt = await fs.readFile(file, 'utf8');
     return JSON.parse(txt);
@@ -58,9 +66,37 @@ async function readJSON(file, fallback) {
 }
 
 async function writeJSON(file, data) {
+  if (storageCollection) {
+    await storageCollection.replaceOne(
+      { key: file === PRODUCTS_FILE ? 'products' : 'data' },
+      { key: file === PRODUCTS_FILE ? 'products' : 'data', value: data, updatedAt: new Date() },
+      { upsert: true }
+    );
+    return;
+  }
   const tempFile = `${file}.${process.pid}.tmp`;
   await fs.writeFile(tempFile, JSON.stringify(data, null, 2), 'utf8');
   await fs.rename(tempFile, file);
+}
+
+async function connectMongo() {
+  if (!MONGODB_URI) return;
+  const client = new MongoClient(MONGODB_URI, { serverSelectionTimeoutMS: 10000 });
+  await client.connect();
+  const collection = client.db(MONGODB_DB).collection('app_storage');
+  await collection.createIndex({ key: 1 }, { unique: true });
+
+  // Seed only missing documents so an existing MongoDB database is never overwritten.
+  const localProducts = await readJSON(PRODUCTS_FILE, null);
+  const localData = await readJSON(DATA_FILE, null);
+  storageCollection = collection;
+  if (!(await storageCollection.findOne({ key: 'products' })) && Array.isArray(localProducts)) {
+    await writeJSON(PRODUCTS_FILE, localProducts);
+  }
+  if (!(await storageCollection.findOne({ key: 'data' })) && localData && typeof localData === 'object') {
+    await writeJSON(DATA_FILE, localData);
+  }
+  console.log(`MongoDB storage enabled: ${MONGODB_DB}`);
 }
 
 function requireAuth(req, res, next) {
@@ -311,6 +347,7 @@ app.post('/api/site-content', requireAuth, async (req, res) => {
 
 async function startServer() {
   await ensureDataDir();
+  await connectMongo();
   app.listen(PORT, () => {
     console.log(`Server listening on http://localhost:${PORT}`);
     console.log(`Persistent data directory: ${DATA_DIR}`);
