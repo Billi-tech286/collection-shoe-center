@@ -1,6 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const { MongoClient } = require('mongodb');
+const nodemailer = require('nodemailer');
 const fs = require('fs').promises;
 const path = require('path');
 
@@ -50,7 +52,7 @@ app.use(session({
   cookie: { maxAge: 24 * 60 * 60 * 1000, httpOnly: true, sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', secure: process.env.NODE_ENV === 'production' }
 }));
 
-app.use(express.static(DATA_DIR));
+app.use(express.static(path.join(__dirname, 'public')));
 
 async function readJSON(file, fallback) {
   if (storageCollection) {
@@ -218,23 +220,33 @@ app.post('/api/order-request', async (req, res) => {
   settings.orders.unshift(order);
   try {
     await writeJSON(DATA_FILE, settings);
-    if (process.env.SMTP_HOST) {
-      const nodemailer = require('nodemailer');
-      const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: Number(process.env.SMTP_PORT || 587),
-        secure: process.env.SMTP_SECURE === 'true',
-        auth: process.env.SMTP_USER ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS } : undefined
-      });
-      await transporter.sendMail({ from: process.env.SMTP_FROM || process.env.SMTP_USER, to: recipient, replyTo: email || undefined, subject, text });
-    } else {
-      console.log(`Order request for ${recipient}:\n${text}`);
-    }
-    return res.json({ ok: true, orderId: order.id });
+  } catch (error) {
+    console.error('Could not save order:', error.message);
+    return res.status(500).json({ error: 'Could not save the order request' });
+  }
+
+  if (!process.env.SMTP_HOST || !process.env.SMTP_FROM || !recipient) {
+    console.error('Order email is not configured. Set SMTP_HOST, SMTP_FROM, and OWNER_EMAIL.');
+    return res.status(202).json({ ok: true, orderId: order.id, emailSent: false });
+  }
+
+  try {
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT || 587),
+      secure: process.env.SMTP_SECURE === 'true',
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 15000,
+      auth: process.env.SMTP_USER ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS } : undefined
+    });
+    await transporter.sendMail({ from: process.env.SMTP_FROM, to: recipient, replyTo: email || undefined, subject, text });
   } catch (error) {
     console.error('Order email failed:', error.message);
-    return res.status(502).json({ error: 'Could not send the order request' });
+    return res.status(202).json({ ok: true, orderId: order.id, emailSent: false });
   }
+
+  return res.json({ ok: true, orderId: order.id, emailSent: true });
 });
 
 app.get('/api/orders', requireAuth, async (req, res) => {
