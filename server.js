@@ -225,22 +225,33 @@ app.post('/api/order-request', async (req, res) => {
     return res.status(500).json({ error: 'Could not save the order request' });
   }
 
-  if (!process.env.SMTP_HOST || !process.env.SMTP_FROM || !recipient) {
-    console.error('Order email is not configured. Set SMTP_HOST, SMTP_FROM, and OWNER_EMAIL.');
+  if (!process.env.EMAILJS_SERVICE_ID || !process.env.EMAILJS_TEMPLATE_ID || !process.env.EMAILJS_PUBLIC_KEY || !recipient) {
+    console.error('Order email is not configured. Set EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY, and OWNER_EMAIL.');
     return res.status(202).json({ ok: true, orderId: order.id, emailSent: false });
   }
 
   try {
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT || 587),
-      secure: process.env.SMTP_SECURE === 'true',
-      connectionTimeout: 10000,
-      greetingTimeout: 10000,
-      socketTimeout: 15000,
-      auth: process.env.SMTP_USER ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS } : undefined
+    const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        service_id: process.env.EMAILJS_SERVICE_ID,
+        template_id: process.env.EMAILJS_TEMPLATE_ID,
+        user_id: process.env.EMAILJS_PUBLIC_KEY,
+        template_params: {
+          to_email: recipient,
+          subject,
+          message: text,
+          phone,
+          customer_email: email || 'Not provided',
+          landmark: landmark || 'Not provided',
+          address: address || 'Not provided',
+          payment_method: paymentMethod || 'Not selected',
+          items: lines
+        }
+      })
     });
-    await transporter.sendMail({ from: process.env.SMTP_FROM, to: recipient, replyTo: email || undefined, subject, text });
+    if (!response.ok) throw new Error(`EmailJS returned ${response.status}: ${await response.text()}`);
   } catch (error) {
     console.error('Order email failed:', error.message);
     return res.status(202).json({ ok: true, orderId: order.id, emailSent: false });

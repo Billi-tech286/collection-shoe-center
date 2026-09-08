@@ -21,5 +21,8 @@ window.sendOrderEmail = async function (order) {
 	let result = {};
 	try { result = await response.json(); } catch (error) { /* The server may return an empty error response. */ }
 	if (!response.ok) throw new Error(result.error || 'Could not send the order request.');
+	if (result.emailSent === false) {
+		throw new Error(`Order received, but the notification email could not be delivered. Reference: ${result.orderId || 'saved order'}.`);
+	}
 	return result;
 };
