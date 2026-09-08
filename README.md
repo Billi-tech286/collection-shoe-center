@@ -43,17 +43,21 @@ npm start
 
 Order request email
 
-Order requests include the selected product size and color. To deliver them by email, configure SMTP before starting the server:
+Both checkout forms send orders to the server's `/api/order-request` endpoint. Configure these environment variables on the server so it can email the shop:
 
-```bash
-SMTP_HOST=smtp.example.com SMTP_PORT=587 SMTP_USER=store@example.com SMTP_PASS=yourpassword SMTP_FROM=store@example.com npm start
-```
+ - `SMTP_HOST`
+ - `SMTP_PORT` (optional, defaults to `587`)
+ - `SMTP_SECURE` (set to `true` for TLS-enabled SMTP ports such as `465`)
+ - `SMTP_USER` and `SMTP_PASS` (when required by the provider)
+ - `SMTP_FROM`
+ - `OWNER_EMAIL`
 
-Without SMTP settings, requests are logged by the server for local development.
+The server saves the order before sending the email, so orders remain available in the admin panel if email delivery is temporarily unavailable.
 
 Notes
 
 - The server stores products in `products.json` and settings/hero in `data.json`.
 - Set `DATA_DIR` when deploying so the JSON files live on persistent storage; the server prints the resolved directory at startup.
+- Set `MONGODB_URI` and `MONGODB_DB` to use MongoDB instead; the first startup imports missing data from the JSON files and later changes are stored in MongoDB.
 - Admin login uses server-side session cookies; protected API endpoints are under `/api/*`.
 - For production, change `SESSION_SECRET` and `ADMIN_PASS` and run behind HTTPS.
